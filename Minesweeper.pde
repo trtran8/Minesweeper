@@ -88,12 +88,22 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        if(mouseButton==RIGHT)
+        if(mouseButton==RIGHT){
             marked=true;
-        else if(bombs.contains(this))
+        }
+        else if(bombs.contains(this)){
             displayLosingMessage();
-        else if(countBombs(this))
-            
+        }
+        else if(countBombs(r,c)>0){
+            setLabel(""+countBombs(r,c));
+        }
+        else{
+            for(int a=r-1;a<r+1;a++){
+                for(int b=c-1;b<c+1;b++){
+                    buttons[a][b].mousePressed();
+                }
+            }
+        }
     }
 
     public void draw () 
