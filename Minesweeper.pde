@@ -100,7 +100,9 @@ public class MSButton
         else{
             for(int a=r-1;a<r+1;a++){
                 for(int b=c-1;b<c+1;b++){
-                    buttons[a][b].mousePressed();
+                    if(isValid(a,b)){
+                        buttons[a][b].mousePressed();
+                    }
                 }
             }
         }
@@ -137,14 +139,37 @@ public class MSButton
     {
         int numBombs = 0;
         //your code here
-        for(int a=row-1;a<row+1;a++){
-            for(int b=col-1;b<col+1;b++){
-                if(isValid(a,b)){
-                    if(bombs.contains(buttons[a][b])==true){
+        //left up
+        if(isValid(row-1,col-1)&&bombs.contains(buttons[row-1][col-1])){
                         numBombs++;
-                    }
-                }
-            }
+        }
+        //left
+        if(isValid(row,col-1)&&bombs.contains(buttons[row][col-1])){
+                        numBombs++;
+        }
+        //left down
+        if(isValid(row+1,col-1)&&bombs.contains(buttons[row+1][col-1])){
+                        numBombs++;
+        }
+        //down
+        if(isValid(row+1,col)&&bombs.contains(buttons[row+1][col])){
+                        numBombs++;
+        }
+        //right down
+        if(isValid(row+1,col+1)&&bombs.contains(buttons[row+1][col+1])){
+                        numBombs++;
+        }
+        //right
+        if(isValid(row,col+1)&&bombs.contains(buttons[row][col+1])){
+                        numBombs++;
+        }
+        //right up
+        if(isValid(row-1,col+1)&& bombs.contains(buttons[row-1][col+1])){
+                        numBombs++;
+        }
+        //up
+        if(isValid(row-1,col)&&bombs.contains(buttons[row-1][col])){
+                        numBombs++;
         }
         return numBombs;
     }
