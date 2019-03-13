@@ -4,6 +4,7 @@ import de.bezier.guido.*;
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
 public final static int NUM_COLS = 20;
 public final static int NUM_ROWS = 20;
+public final static int NUM_BOMBS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs = new ArrayList <MSButton>() ; //ArrayList of just the minesweeper buttons that are mined
 
@@ -27,11 +28,13 @@ void setup ()
 public void setBombs()
 {
     //your code
-    int r=(int)(Math.random()*NUM_ROWS);
-    int c=(int)(Math.random()*NUM_COLS);
-    if(bombs.contains(buttons[r][c])==false){
-        bombs.add(buttons[r][c]);
-        System.out.println(r+","+c);
+    while(bombs.size()<NUM_BOMBS){
+        int r=(int)(Math.random()*NUM_ROWS);
+        int c=(int)(Math.random()*NUM_COLS);
+        if(bombs.contains(buttons[r][c])==false){
+            bombs.add(buttons[r][c]);
+            System.out.println(r+","+c);
+        }
     }
 }
 
@@ -98,13 +101,30 @@ public class MSButton
             setLabel(""+countBombs(r,c));
         }
         else{
-            for(int a=r-1;a<r+1;a++){
-                for(int b=c-1;b<c+1;b++){
-                    if(isValid(a,b)){
-                        buttons[a][b].mousePressed();
-                    }
-                }
-            }
+            //left up
+            if(isValid(r-1,c-1))
+                buttons[r-1][c-1].mousePressed();
+            //left
+            if(isValid(r,c-1))
+                buttons[r][c-1].mousePressed();
+            //left down
+            if(isValid(r+1,c-1))
+                buttons[r+1][c-1].mousePressed();
+            //down
+            if(isValid(r+1,c))
+                buttons[r+1][c].mousePressed();
+            //right down
+            if(isValid(r+1,c+1))
+                buttons[r+1][c+1].mousePressed();
+            //right
+            if(isValid(r,c+1))
+                buttons[r][c+1].mousePressed();
+            //right up
+            if(isValid(r-1,c+1))
+                buttons[r-1][c+1].mousePressed();
+            //up
+            if(isValid(r-1,c))
+                buttons[r-1][c+1].mousePressed();
         }
     }
 
